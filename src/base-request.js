@@ -12,6 +12,7 @@ var Request = function(builder) {
   this.bodyParameters = builder.bodyParameters;
   this.headers = builder.headers;
   this.path = builder.path;
+  this.proxy = builder.proxy;
 };
 
 Request.prototype.getHost = function() {
@@ -40,6 +41,10 @@ Request.prototype.getBodyParameters = function() {
 
 Request.prototype.getHeaders = function() {
   return this.headers;
+};
+
+Request.prototype.getProxy = function() {
+    return this.proxy;
 };
 
 Request.prototype.getURI = function() {
@@ -123,7 +128,7 @@ Request.prototype.getQueryParameterString = function() {
 };
 
 var Builder = function() {
-  var host, port, scheme, queryParameters, bodyParameters, headers, jsonBody;
+  var host, port, scheme, queryParameters, bodyParameters, headers, jsonBody, proxy;
 };
 
 Builder.prototype.withHost = function(host) {
@@ -158,6 +163,11 @@ Builder.prototype.withBodyParameters = function(bodyParameters) {
 
 Builder.prototype.withHeaders = function(headers) {
   this.headers = headers;
+  return this;
+};
+
+Builder.prototype.withProxy = function(proxy_uri) {
+  this.proxy = proxy_uri;
   return this;
 };
 

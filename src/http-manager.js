@@ -3,6 +3,8 @@
 var superagent = require('superagent'),
     WebApiError = require('./webapi-error');
 
+require('superagent-proxy')(superagent);
+
 var HttpManager = {};
 
 /* Create superagent options from the base request */
@@ -24,6 +26,7 @@ var _getParametersFromRequest = function(request) {
   if (request.getHeaders()) {
     options.headers = request.getHeaders();
   }
+
   return options;
 };
 
@@ -99,6 +102,7 @@ HttpManager._makeRequest = function(method, options, uri, callback) {
 HttpManager.get = function(request, callback) {
   var options = _getParametersFromRequest(request);
   var method = superagent.get;
+  method.proxy(request.getProxy());
 
   HttpManager._makeRequest(method, options, request.getURI(), callback);
 };
@@ -112,6 +116,7 @@ HttpManager.post = function(request, callback) {
 
   var options = _getParametersFromRequest(request);
   var method = superagent.post;
+  method.proxy(request.getProxy());
 
   HttpManager._makeRequest(method, options, request.getURI(), callback);
 };
@@ -125,6 +130,7 @@ HttpManager.del = function(request, callback) {
 
   var options = _getParametersFromRequest(request);
   var method = superagent.del;
+  method.proxy(request.getProxy());
 
   HttpManager._makeRequest(method, options, request.getURI(), callback);
 };
@@ -138,6 +144,7 @@ HttpManager.put = function(request, callback) {
 
   var options = _getParametersFromRequest(request);
   var method = superagent.put;
+  method.proxy(request.getProxy());
 
   HttpManager._makeRequest(method, options, request.getURI(), callback);
 };
