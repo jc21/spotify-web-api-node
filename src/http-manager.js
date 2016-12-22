@@ -60,8 +60,12 @@ var _getErrorObject = function(defaultMessage, err) {
 };
 
 /* Make the request to the Web API */
-HttpManager._makeRequest = function(method, options, uri, callback) {
+HttpManager._makeRequest = function(method, options, uri, callback, proxy_uri) {
   var req = method(uri);
+
+  if (proxy_uri) {
+    req.proxy(proxy_uri);
+  }
 
   if (options.query) {
     req.query(options.query);
@@ -102,9 +106,8 @@ HttpManager._makeRequest = function(method, options, uri, callback) {
 HttpManager.get = function(request, callback) {
   var options = _getParametersFromRequest(request);
   var method = superagent.get;
-  method.proxy(request.getProxy());
 
-  HttpManager._makeRequest(method, options, request.getURI(), callback);
+  HttpManager._makeRequest(method, options, request.getURI(), callback, request.getProxy());
 };
 
 /**
@@ -116,9 +119,8 @@ HttpManager.post = function(request, callback) {
 
   var options = _getParametersFromRequest(request);
   var method = superagent.post;
-  method.proxy(request.getProxy());
 
-  HttpManager._makeRequest(method, options, request.getURI(), callback);
+  HttpManager._makeRequest(method, options, request.getURI(), callback, request.getProxy());
 };
 
 /**
@@ -130,9 +132,8 @@ HttpManager.del = function(request, callback) {
 
   var options = _getParametersFromRequest(request);
   var method = superagent.del;
-  method.proxy(request.getProxy());
 
-  HttpManager._makeRequest(method, options, request.getURI(), callback);
+  HttpManager._makeRequest(method, options, request.getURI(), callback, request.getProxy());
 };
 
 /**
@@ -144,9 +145,8 @@ HttpManager.put = function(request, callback) {
 
   var options = _getParametersFromRequest(request);
   var method = superagent.put;
-  method.proxy(request.getProxy());
 
-  HttpManager._makeRequest(method, options, request.getURI(), callback);
+  HttpManager._makeRequest(method, options, request.getURI(), callback, request.getProxy());
 };
 
 module.exports = HttpManager;
