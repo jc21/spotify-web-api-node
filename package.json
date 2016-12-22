@@ -1,5 +1,5 @@
 {
-  "name": "spotify-web-api-node",
+  "name": "@jc21/spotify-web-api-node",
   "version": "2.3.6",
   "homepage": "https://github.com/thelinmichael/spotify-web-api-node",
   "description": "A Node.js wrapper for Spotify's Web API",
